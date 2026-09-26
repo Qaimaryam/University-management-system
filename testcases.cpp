@@ -21,7 +21,12 @@ string* disabledStudentIds = new string[50];
 string* disabledTypesArr = new string[50];
 int disabledCount = 0;
 
+bool WillReceiveNotification(string userId, string type); // forward declaration
+
 void NotifyUser(string userId, string notificationType, string notificationMessage) {
+    if (!WillReceiveNotification(userId, notificationType)) {
+        return;
+    }
     inbox[inboxCount].userId = userId;
     inbox[inboxCount].type = notificationType;
     inbox[inboxCount].message = notificationMessage;
@@ -67,6 +72,31 @@ bool WillReceiveNotification(string userId, string type) {
     }
     return true;
 }
+
+void TestCancelClass_NotifiesStudents() {
+    bool cancelled = CancelClass("CS101");
+    assert(cancelled == true);
+    cout << "TestCancelClass_NotifiesStudents PASSED\n";
+}
+
+void TestSendAnnouncement_ReachesAllStudents() {
+    bool sent = SendAnnouncement("Exam postponed");
+    assert(sent == true);
+    cout << "TestSendAnnouncement_ReachesAllStudents PASSED\n";
+}
+
+void TestReminder_SentAt15Minutes() {
+    bool sent = CheckAndSendReminder("Dr.Ahmed", 15);
+    assert(sent == true);
+    cout << "TestReminder_SentAt15Minutes PASSED\n";
+}
+
+void TestReminder_NotSentEarly() {
+    bool sent = CheckAndSendReminder("Dr.Ahmed", 60);
+    assert(sent == false);
+    cout << "TestReminder_NotSentEarly PASSED\n";
+}
+
 void TestDisableNotification_StopsReceiving() {
     DisableNotificationType("Ali", "Announcement");
     bool willReceive = WillReceiveNotification("Ali", "Announcement");
@@ -75,6 +105,16 @@ void TestDisableNotification_StopsReceiving() {
 }
 
 int main() {
+    TestCancelClass_NotifiesStudents();
+    TestSendAnnouncement_ReachesAllStudents();
+    TestReminder_SentAt15Minutes();
+    TestReminder_NotSentEarly();
     TestDisableNotification_StopsReceiving();
+
+    delete[] inbox;
+    delete[] enrolledStudents;
+    delete[] disabledStudentIds;
+    delete[] disabledTypesArr;
+
     return 0;
 }
