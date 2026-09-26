@@ -19,10 +19,26 @@ void SeedFacultyData() {
     facultyCount = 1;
 }
 
-// Sirf declaration - body nahi likhi abhi
-bool UpdateFacultyProfile(string facultyId, string newEmail, string newDepartment);
-FacultyProfile GetFacultyProfile(string facultyId);
+bool UpdateFacultyProfile(string facultyId, string newEmail, string newDepartment) {
+    for (int i = 0; i < facultyCount; i++) {
+        if (facultyProfiles[i].facultyId == facultyId) {
+            facultyProfiles[i].email = newEmail;
+            facultyProfiles[i].department = newDepartment;
+            return true;
+        }
+    }
+    return false;
+}
 
+FacultyProfile GetFacultyProfile(string facultyId) {
+    for (int i = 0; i < facultyCount; i++) {
+        if (facultyProfiles[i].facultyId == facultyId) {
+            return facultyProfiles[i];
+        }
+    }
+    FacultyProfile empty = { "", "", "", "" };
+    return empty;
+}
 void TestUpdateProfile_ChangesReflectedImmediately() {
     SeedFacultyData();
 
