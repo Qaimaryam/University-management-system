@@ -22,10 +22,14 @@ void NotifyUser(string userId, string type, string message) {
     inboxCount++;
 }
 
-bool CancelClass(string classId) {
+void NotifyAllStudents(string type, string message) {
     for (int i = 0; i < studentCount; i++) {
-        NotifyUser(enrolledStudents[i], "Cancellation", "Class " + classId + " has been cancelled");
+        NotifyUser(enrolledStudents[i], type, message);
     }
+}
+
+bool CancelClass(string classId) {
+    NotifyAllStudents("Cancellation", "Class " + classId + " has been cancelled");
     return true;
 }
 
