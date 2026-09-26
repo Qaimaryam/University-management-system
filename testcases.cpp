@@ -15,16 +15,16 @@ int inboxCount = 0;
 string* enrolledStudents = new string[3]{ "Ali", "Sara", "Zain" };
 int studentCount = 3;
 
-void NotifyUser(string userId, string type, string message) {
+void NotifyUser(string userId, string notificationType, string notificationMessage) {
     inbox[inboxCount].userId = userId;
-    inbox[inboxCount].type = type;
-    inbox[inboxCount].message = message;
+    inbox[inboxCount].type = notificationType;
+    inbox[inboxCount].message = notificationMessage;
     inboxCount++;
 }
 
-void NotifyAllStudents(string type, string message) {
+void NotifyAllStudents(string notificationType, string notificationMessage) {
     for (int i = 0; i < studentCount; i++) {
-        NotifyUser(enrolledStudents[i], type, message);
+        NotifyUser(enrolledStudents[i], notificationType, notificationMessage);
     }
 }
 
