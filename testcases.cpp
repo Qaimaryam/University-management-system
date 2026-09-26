@@ -33,8 +33,10 @@ bool CancelClass(string classId) {
     return true;
 }
 
-// Sirf declaration - body nahi likhi abhi
-bool SendAnnouncement(string message);
+bool SendAnnouncement(string message) {
+    NotifyAllStudents("Announcement", message);
+    return true;
+}
 
 void TestCancelClass_NotifiesStudents() {
     bool cancelled = CancelClass("CS101");
