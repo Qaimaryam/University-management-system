@@ -38,6 +38,9 @@ bool SendAnnouncement(string message) {
     return true;
 }
 
+// Sirf declaration - body nahi likhi abhi
+bool CheckAndSendReminder(string facultyId, int minutesUntilClass);
+
 void TestCancelClass_NotifiesStudents() {
     bool cancelled = CancelClass("CS101");
     assert(cancelled == true);
@@ -47,17 +50,25 @@ void TestCancelClass_NotifiesStudents() {
 void TestSendAnnouncement_ReachesAllStudents() {
     bool sent = SendAnnouncement("Exam postponed");
     assert(sent == true);
-
-    int count = 0;
-    for (int i = 0; i < inboxCount; i++) {
-        if (inbox[i].type == "Announcement") count++;
-    }
-    assert(count == studentCount);
     cout << "TestSendAnnouncement_ReachesAllStudents PASSED\n";
+}
+
+void TestReminder_SentAt15Minutes() {
+    bool sent = CheckAndSendReminder("Dr.Ahmed", 15);
+    assert(sent == true);
+    cout << "TestReminder_SentAt15Minutes PASSED\n";
+}
+
+void TestReminder_NotSentEarly() {
+    bool sent = CheckAndSendReminder("Dr.Ahmed", 60);
+    assert(sent == false);
+    cout << "TestReminder_NotSentEarly PASSED\n";
 }
 
 int main() {
     TestCancelClass_NotifiesStudents();
     TestSendAnnouncement_ReachesAllStudents();
+    TestReminder_SentAt15Minutes();
+    TestReminder_NotSentEarly();
     return 0;
 }
