@@ -38,8 +38,13 @@ bool SendAnnouncement(string message) {
     return true;
 }
 
-// Sirf declaration - body nahi likhi abhi
-bool CheckAndSendReminder(string facultyId, int minutesUntilClass);
+bool CheckAndSendReminder(string facultyId, int minutesUntilClass) {
+    if (minutesUntilClass == 15) {
+        NotifyUser(facultyId, "Reminder", "You have a class in 15 minutes");
+        return true;
+    }
+    return false;
+}
 
 void TestCancelClass_NotifiesStudents() {
     bool cancelled = CancelClass("CS101");
