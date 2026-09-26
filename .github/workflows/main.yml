@@ -1,0 +1,16 @@
+name: Build and Test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Compile Program
+        run: g++ -o test testcases.cpp
+
+      - name: Run Tests
+        run: ./test.exe
