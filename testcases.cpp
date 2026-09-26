@@ -52,10 +52,21 @@ bool CheckAndSendReminder(string facultyId, int minutesUntilClass) {
     return false;
 }
 
-// Sirf declaration - body nahi likhi abhi
-bool DisableNotificationType(string studentId, string type);
-bool WillReceiveNotification(string userId, string type);
+bool DisableNotificationType(string studentId, string type) {
+    disabledStudentIds[disabledCount] = studentId;
+    disabledTypesArr[disabledCount] = type;
+    disabledCount++;
+    return true;
+}
 
+bool WillReceiveNotification(string userId, string type) {
+    for (int i = 0; i < disabledCount; i++) {
+        if (disabledStudentIds[i] == userId && disabledTypesArr[i] == type) {
+            return false;
+        }
+    }
+    return true;
+}
 void TestDisableNotification_StopsReceiving() {
     DisableNotificationType("Ali", "Announcement");
     bool willReceive = WillReceiveNotification("Ali", "Announcement");
