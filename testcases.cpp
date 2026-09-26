@@ -38,14 +38,15 @@ bool SendAnnouncement(string message) {
     return true;
 }
 
+const int REMINDER_THRESHOLD_MINUTES = 15;
+
 bool CheckAndSendReminder(string facultyId, int minutesUntilClass) {
-    if (minutesUntilClass == 15) {
+    if (minutesUntilClass == REMINDER_THRESHOLD_MINUTES) {
         NotifyUser(facultyId, "Reminder", "You have a class in 15 minutes");
         return true;
     }
     return false;
 }
-
 void TestCancelClass_NotifiesStudents() {
     bool cancelled = CancelClass("CS101");
     assert(cancelled == true);
