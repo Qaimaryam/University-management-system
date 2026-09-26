@@ -15,8 +15,19 @@ int inboxCount = 0;
 string* enrolledStudents = new string[3]{ "Ali", "Sara", "Zain" };
 int studentCount = 3;
 
-// Sirf declaration - body nahi likhi abhi
-bool CancelClass(string classId);
+void NotifyUser(string userId, string type, string message) {
+    inbox[inboxCount].userId = userId;
+    inbox[inboxCount].type = type;
+    inbox[inboxCount].message = message;
+    inboxCount++;
+}
+
+bool CancelClass(string classId) {
+    for (int i = 0; i < studentCount; i++) {
+        NotifyUser(enrolledStudents[i], "Cancellation", "Class " + classId + " has been cancelled");
+    }
+    return true;
+}
 
 void TestCancelClass_NotifiesStudents() {
     bool cancelled = CancelClass("CS101");
